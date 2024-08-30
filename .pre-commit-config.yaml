@@ -1,0 +1,39 @@
+repos:
+  # Go mod tidy.
+  - repo: local
+    hooks:
+      - id: go-mod-tidy
+        name: Execute go mod tidy
+        stages: [commit]
+        entry: sh -c 'go mod tidy && git add go.mod go.sum'
+        pass_filenames: false
+        always_run: true
+        language: system
+
+  # Ensure that the code is nicely formatted.
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.14.0
+    hooks:
+      - id: pretty-format-golang
+        args:
+          - --autofix
+
+  # Execute go linters.
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v1.60.3
+    hooks:
+      - id: golangci-lint
+        entry: golangci-lint run
+        args:
+          - --max-issues-per-linter=0
+          - --max-same-issues=0
+          - --config=.golangci.yml
+          - --allow-parallel-runners=true
+
+  # Conventional commits
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.3.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [ commit-msg ]
+        args: [ ]

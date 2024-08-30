@@ -1,0 +1,128 @@
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+  tests: false
+
+linters:
+  disable-all: true
+  enable:
+    - gofmt
+    - goimports
+    - govet
+    - errcheck
+    - gosimple
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - containedctx
+    - contextcheck
+    - cyclop
+    - decorder
+    - depguard
+    - dogsled
+    - dupl
+    - durationcheck
+    - errchkjson
+    - errname
+    - errorlint
+    - copyloopvar
+    - forbidigo
+    - forcetypeassert
+    - funlen
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - godox
+    - err113
+    - gofumpt
+    - goheader
+    - gomoddirectives
+    - gomodguard
+    - goprintffuncname
+    - grouper
+    - importas
+    - lll
+    - maintidx
+    - makezero
+    - misspell
+    - nakedret
+    - nestif
+    - nilerr
+    - nilnil
+    - nlreturn
+    - noctx
+    - nolintlint
+    - prealloc
+    - predeclared
+    - rowserrcheck
+    - sqlclosecheck
+    - stylecheck
+    - tagliatelle
+    - tenv
+    - testpackage
+    - thelper
+    - tparallel
+    - unconvert
+    - unparam
+    - varnamelen
+    - wastedassign
+    - whitespace
+    - wsl
+
+linters-settings:
+  lll:
+    line-length: 200
+  dogsled:
+    max-blank-identifiers: 3
+  tagliatelle:
+    case:
+      rules:
+        json: snake
+        mapstructure: snake
+  dupl:
+    ## https://github.com/golangci/golangci-lint/issues/1372 Issue
+    threshold: 250
+  funlen:
+    lines: 100
+    statements: 75
+  cyclop:
+    max-complexity: 15
+  forbidigo:
+    # Forbid the following identifiers
+    forbid:
+      - ^logger.Debug.*$ # -- forbid use of Print statements because they are likely just for debugging
+      - ^spew.Dump$ # -- forbid dumping detailed data to stdout
+      - ^ginkgo.F[A-Z].*$ # -- forbid ginkgo focused commands (used for debug issues)
+  varnamelen:
+    min-name-length: 2
+  depguard:
+    rules:
+      main:
+        allow:
+          - $gostd
+          - github.com/hvpaiva
+          - github.com/pkg/errors
+          - github.com/spf13
+
+issues:
+  exclude-rules:
+    - path: scripts/skeleton/tmpl
+      linters:
+        - godox
+    - path: _test\.go
+      linters:
+        - funlen
+        - errchkjson
+        - goerr113
+        - dupl
+        - maintidx
+        - contextcheck
+        - goconst
+  exclude-dirs:
+    - internal/test
