@@ -46,7 +46,9 @@ func (p *Project) Create() error {
 		}
 	}(parserFile)
 
-	parserTemplate := template.Must(template.New("parser").Parse(string(tpl.AddMainTestTemplate())))
+	fmt.Printf("%+v\n", p)
+
+	parserTemplate := template.Must(template.New("parser").Parse(string(tpl.AddParserTemplate())))
 
 	err = parserTemplate.Execute(parserFile, p)
 	if err != nil {

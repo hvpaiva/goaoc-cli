@@ -56,6 +56,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.goaoc-cli.yaml)")
 
 	rootCmd.AddCommand(initCmd)
+	rootCmd.AddCommand(addCmd)
 
 	if err := doc.GenMarkdownTree(rootCmd, "/tmp"); err != nil {
 		log.Fatal(err)

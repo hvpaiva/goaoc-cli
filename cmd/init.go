@@ -99,6 +99,9 @@ func initializeProject(args []string) (string, error) {
 func getModImportPath() string {
 	mod, cd := parseModInfo()
 
+	fmt.Printf("%+v\n", mod)
+	fmt.Printf("%+v\n", cd)
+
 	return path.Join(mod.Path, fileToURL(strings.TrimPrefix(cd.Dir, mod.Dir)))
 }
 
